@@ -31,3 +31,4 @@ def main():
   print "Closing..."
 
 main()
+GPIO.cleanup()
