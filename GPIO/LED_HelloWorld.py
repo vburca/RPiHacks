@@ -1,14 +1,16 @@
 import sys, argparse
 import RPi.GPIO as GPIO
 
+LED_PIN = 19
+
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.OUT)
+GPIO.setup(LED_PIN, GPIO.OUT)
 
 def turnOnLED():
-  GPIO.output(17, GPIO.HIGH)
+  GPIO.output(LED_PIN, GPIO.HIGH)
 
 def turnOffLED():
-  GPIO.output(17, GPIO.LOW)
+  GPIO.output(LED_PIN, GPIO.LOW)
 
 
 def main():
@@ -21,14 +23,15 @@ def main():
   group.add_argument('--off', action='store_false', help='turn OFF the LED')  
 
   args = parser.parse_args()
-  
+ 
   if args.on:
     print "Turning ON LED..."
     turnOnLED()    
   else:
     print "Turning OFF LED..."
     turnOffLED()
+    print "Cleaning up GPIO state..."
+    GPIO.cleanup()
   print "Closing..."
 
 main()
-GPIO.cleanup()
